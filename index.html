@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DualVibe — Drop 01</title>
+  <meta name="description" content="DualVibe. Coton lourd, coupe oversize. Vente en direct dans l'Oise.">
+
+  <!-- Polices : contraste fort entre un poids noir (titres) et un poids fin (texte courant) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,300;0,400;0,600;0,900;1,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!-- HEADER / NAVBAR — sticky, fond transparent      -->
+  <!-- ============================================= -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      
+      <a href="#" class="logo" aria-label="DualVibe — accueil">
+        <img src="logo seul fond transparent.png" alt="DualVibe" class="logo-img">
+      </a>
+
+      <nav class="main-nav">
+        <a href="#histoire">Histoire</a>
+        <a href="#collection">Collection</a>
+        <a href="#entretien">Entretien</a>
+        <a href="#commander">Commander</a>
+      </nav>
+
+      <!-- Bouton burger pour mobile -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menu mobile plein écran -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav>
+      <a href="#histoire">Histoire</a>
+      <a href="#collection">Collection</a>
+      <a href="#entretien">Entretien</a>
+      <a href="#commander">Commander</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- ============================================= -->
+    <!-- HERO — photo plein écran + titre central       -->
+    <!-- ============================================= -->
+    <section class="hero" id="hero">
+      <!-- Remplace la source par ta photo de shooting en pleine largeur (1920x1080 min conseillé) -->
+      <img src="A29B6443.jpg" alt="DualVibe — Drop 01" class="hero-media">
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow">DualVibe</p>
+        <h1 class="hero-title">DROP 01.<br>OUT NOW.</h1>
+        <a href="#collection" class="btn btn-ghost hero-cta">Découvrir la collection</a>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- HISTOIRE — texte épuré + photo d'ambiance       -->
+    <!-- ============================================= -->
+    <section class="story" id="histoire">
+      <div class="story-grid">
+
+        <div class="story-text fade-in">
+          <h2 class="section-title">L'histoire</h2>
+          <p class="story-lead">
+            DualVibe est né dans une chambre, pas dans un bureau.
+          </p>
+          <p>
+            À 19 ans, l'idée de départ était simple : la plupart des t-shirts
+            oversize vendus en France ne tombent pas comme il faut, ou sacrifient
+            la matière pour tenir un prix. On a passé des mois à tester des coupes,
+            des grammages, des laveries différentes, jusqu'à trouver l'équilibre
+            juste entre volume et structure.
+          </p>
+          <p>
+            Le résultat : une coupe oversize dessinée pièce par pièce, en
+            <strong>100% coton lourd</strong>, épais, qui garde sa forme lavage
+            après lavage. Pas de logo criard, pas de sur-marquage. Juste la
+            matière, la coupe, et le temps qu'il a fallu pour les régler.
+          </p>
+        </div>
+
+        <div class="story-image fade-in">
+          <!-- Photo d'ambiance : portrait ou détail texture, format vertical conseillé -->
+          <img src="A29B6450.jpg" alt="Ambiance DualVibe — atelier et matière">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- COLLECTION — les 2 modèles                      -->
+    <!-- ============================================= -->
+    <section class="collection" id="collection">
+      <div class="collection-header fade-in">
+        <h2 class="section-title">La collection</h2>
+        <p class="collection-sub">Deux pièces. Une seule exigence de matière.</p>
+      </div>
+
+      <!-- ---------- MODÈLE 01 ---------- -->
+      <article class="product">
+        <div class="product-media fade-in">
+          <!-- Grille asymétrique : 1 grande image + 2 images de détail -->
+          <div class="product-media-grid">
+            <figure class="media-main"><img src="A29B6452.jpg" alt="T-shirt DualVibe modèle 01 — vue de face"></figure>
+            <figure class="media-detail"><img src="A29B6385.jpg" alt="T-shirt DualVibe modèle 01 — détail matière"></figure>
+            <figure class="media-detail"><img src="A29B6384.jpg" alt="T-shirt DualVibe modèle 01 — vue de dos"></figure>
+          </div>
+        </div>
+
+        <div class="product-info fade-in">
+          <span class="product-index">01</span>
+          <h3 class="product-name">Legacy - Core Black</h3>
+          <p class="product-desc">
+            Coupe oversize, épaules tombantes, coton lourd 300g. La pièce
+            fondatrice de DualVibe.
+          </p>
+          <div class="product-meta">
+            <span class="product-price">25€</span>
+            <span class="product-sizes">Tailles : S — M — L — XL</span>
+          </div>
+          <a href="#commander" class="btn btn-outline">Commander cette pièce</a>
+        </div>
+      </article>
+
+      <!-- ---------- MODÈLE 02 ---------- -->
+      <article class="product product-reverse">
+        <div class="product-media fade-in">
+          <div class="product-media-grid product-media-grid-alt">
+            <figure class="media-main"><img src="A29B6462.jpg" alt="T-shirt DualVibe modèle 02 — vue de face"></figure>
+            <figure class="media-detail"><img src="A29B6374.jpg" alt="T-shirt DualVibe modèle 02 — détail matière"></figure>
+            <figure class="media-detail"><img src="A29B6370.jpg" alt="T-shirt DualVibe modèle 02 — porté"></figure>
+          </div>
+        </div>
+
+        <div class="product-info fade-in">
+          <span class="product-index">02</span>
+          <h3 class="product-name">Legacy - Pure White</h3>
+          <p class="product-desc">
+            Même coupe, même grammage, teinte claire. Pensé pour être
+            porté seul ou superposé.
+          </p>
+          <div class="product-meta">
+            <span class="product-price">25€</span>
+            <span class="product-sizes">Tailles : S — M — L — XL</span>
+          </div>
+          <a href="#commander" class="btn btn-outline">Commander cette pièce</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- ENTRETIEN — conseils de lavage                  -->
+    <!-- ============================================= -->
+    <section class="care" id="entretien">
+      <div class="care-inner">
+
+        <div class="care-head fade-in">
+          <h2 class="section-title">Conseils d'entretien</h2>
+          <p class="care-sub">
+            Le standard pour du coton lourd. Trois gestes pour que la pièce
+            garde sa forme et sa matière.
+          </p>
+        </div>
+
+        <ul class="care-list">
+          <li class="care-item fade-in">
+            <h3 class="care-item-title">Lavage</h3>
+            <p>
+              En machine à 30°C maximum. Toujours laver à l'envers pour
+              protéger la fibre et les coutures.
+            </p>
+          </li>
+          <li class="care-item fade-in">
+            <h3 class="care-item-title">Séchage</h3>
+            <p>
+              À l'air libre, impérativement. Aucun passage au sèche-linge
+              pour éviter le rétrécissement du coton.
+            </p>
+          </li>
+          <li class="care-item fade-in">
+            <h3 class="care-item-title">Repassage</h3>
+            <p>
+              À l'envers, pour ne pas marquer la matière.
+            </p>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- COMMANDER — call to action, fond inversé        -->
+    <!-- ============================================= -->
+    <section class="order" id="commander">
+      <div class="order-inner fade-in">
+        <h2 class="section-title section-title-light">Comment commander</h2>
+        <p class="order-text">
+          Pas de boutique en ligne, pas d'intermédiaire. Pour garder ce prix et
+          rester proche de ceux qui portent la marque, chaque commande passe
+          en direct.
+        </p>
+        <p class="order-highlight">
+          Livraison gratuite en main propre dans l'Oise,<br>
+          ou expédition sur demande partout en France.
+        </p>
+
+        <div class="order-actions">
+          <a href="https://www.instagram.com/dual__vibe?obrf=MTltdTdzeWlnOGkyeg==" target="_blank" rel="noopener noreferrer" class="btn btn-solid">
+            Commander via Instagram
+          </a>
+          <a href="https://www.snapchat.com/add/abdel_93h?share_id=y7YKI0N4gWE&locale=fr-FR" target="_blank" rel="noopener noreferrer" class="btn btn-solid">
+            Commander via Snapchat
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================= -->
+  <!-- FOOTER                                          -->
+  <!-- ============================================= -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      
+      <a href="#" class="footer-logo" aria-label="DualVibe — haut de page">
+        <img src="logo seul fond transparent.png" alt="DualVibe" class="logo-img logo-img-footer">
+      </a>
+
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/dual__vibe?obrf=MTltdTdzeWlnOGkyeg==" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.snapchat.com/add/abdel_93h?share_id=y7YKI0N4gWE&locale=fr-FR" target="_blank" rel="noopener noreferrer">Snapchat</a>
+      </div>
+
+      <span class="footer-copy">DualVibe © 2026 — Designed in France</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

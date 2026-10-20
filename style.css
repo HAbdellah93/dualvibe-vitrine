@@ -1,0 +1,691 @@
+/* =================================================================
+   DUALVIBE — STYLE.CSS
+   Direction : brutaliste / éditoriale, monochrome, contrastes de
+   typographie forts (900 vs 200). Aucun arrondi, aucune ombre molle.
+   ================================================================= */
+
+/* ---------------------------------------------------------------
+   1. VARIABLES CSS — palette & typographie
+   --------------------------------------------------------------- */
+:root {
+  /* Palette monochrome */
+  --c-black:      #0a0a0a;
+  --c-black-soft: #141414;
+  --c-white:      #f7f6f3;
+  --c-white-pure: #ffffff;
+  --c-grey-line:  rgba(10, 10, 10, 0.12);
+  --c-grey-line-light: rgba(247, 246, 243, 0.18);
+  --c-grey-mid:   #7a7a76;
+
+  /* Typographie — une seule famille, poids extrêmes */
+  --font-main: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+  /* Rythme / espacements */
+  --gutter: clamp(1.5rem, 4vw, 4rem);
+  --section-pad: clamp(4rem, 10vw, 9rem);
+
+  /* Vitesse des transitions */
+  --ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------------------------------------------------------------
+   2. RESET
+   --------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--c-white);
+  color: var(--c-black);
+  font-family: var(--font-main);
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  /* Placeholder visuel tant que tu n'as pas glissé tes vraies photos */
+  background: linear-gradient(135deg, #d8d8d4, #bcbcb7);
+  object-fit: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+p { margin: 0 0 1.1em; }
+p:last-child { margin-bottom: 0; }
+
+/* Respect des préférences de réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ---------------------------------------------------------------
+   3. UTILITAIRES — titres, boutons, apparition au scroll
+   --------------------------------------------------------------- */
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  margin-bottom: 1.5rem;
+}
+
+.section-title-light { color: var(--c-white); }
+
+/* Boutons — trois variantes, aucun arrondi, transitions nettes */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), transform 0.35s var(--ease);
+  cursor: pointer;
+}
+
+.btn-ghost {
+  color: var(--c-white-pure);
+  border-color: var(--c-white-pure);
+  background: transparent;
+}
+.btn-ghost:hover {
+  background: var(--c-white-pure);
+  color: var(--c-black);
+}
+
+.btn-outline {
+  color: var(--c-black);
+  border-color: var(--c-black);
+  background: transparent;
+}
+.btn-outline:hover {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+
+.btn-solid {
+  color: var(--c-black);
+  background: var(--c-white-pure);
+  border-color: var(--c-white-pure);
+  padding: 1.15rem 2.6rem;
+}
+.btn-solid:hover {
+  background: transparent;
+  color: var(--c-white-pure);
+}
+
+/* Système d'apparition au scroll (piloté par script.js via IntersectionObserver) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------
+   4. HEADER / NAVBAR
+   --------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: transparent;
+  transition: background-color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+/* Une fois que l'on quitte le hero, le header prend un fond plein pour rester lisible */
+.site-header.is-scrolled {
+  background: rgba(247, 246, 243, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--c-grey-line);
+}
+
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.6rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- LOGO ----
+   Fournis UN seul fichier "logo.png" (ou .svg) en NOIR sur fond transparent.
+   - Sur le hero (header transparent, photo sombre) : inversé en blanc via filter: invert(1)
+     pour rester lisible.
+   - Header scrolled + footer (fonds clairs) : affiché tel quel, en noir.
+   Si tu veux le logo noir aussi sur le hero, supprime la ligne "filter: invert(1)"
+   dans ".logo-img". */
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-img {
+  display: block;
+  height: 46px;          /* taille du logo dans le header : ajuste ici */
+  width: auto;
+  background: none;      /* annule le dégradé placeholder des images */
+  filter: invert(1);     /* blanc sur le hero */
+  transition: filter 0.4s var(--ease);
+}
+.site-header.is-scrolled .logo-img { filter: none; }   /* noir une fois scrollé */
+.logo-img-footer { filter: none; height: 40px; }       /* noir dans le footer */
+
+.main-nav {
+  display: flex;
+  gap: 2.4rem;
+}
+
+.main-nav a {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-white-pure);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.4s var(--ease);
+}
+.site-header.is-scrolled .main-nav a { color: var(--c-black); }
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s var(--ease);
+}
+.main-nav a:hover::after { width: 100%; }
+
+/* Burger — mobile uniquement */
+.nav-toggle {
+  display: none;
+  width: 26px;
+  height: 18px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-toggle span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--c-white-pure);
+  transition: background-color 0.4s var(--ease), transform 0.35s var(--ease);
+}
+.nav-toggle span:first-child { top: 0; }
+.nav-toggle span:last-child { bottom: 0; }
+.site-header.is-scrolled .nav-toggle span { background: var(--c-black); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--c-black);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.mobile-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}
+.mobile-menu a {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--c-white-pure);
+}
+
+/* ---------------------------------------------------------------
+   5. HERO
+   --------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-black); /* visible tant que l'image n'est pas chargée */
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Léger voile pour garantir la lisibilité du titre sur toute photo */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.55) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--c-white-pure);
+  padding: 0 1.5rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 11vw, 8rem);
+  color: var(--c-white-pure);
+  margin-bottom: 2.4rem;
+}
+
+/* Indicateur de scroll discret, bas du hero */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 48px;
+  background: var(--c-grey-line-light);
+  overflow: hidden;
+  z-index: 2;
+}
+.scroll-indicator span {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--c-white-pure);
+  animation: scroll-trace 2.2s ease-in-out infinite;
+}
+@keyframes scroll-trace {
+  0%   { top: -100%; }
+  50%  { top: 0%; }
+  100% { top: 100%; }
+}
+
+/* ---------------------------------------------------------------
+   6. HISTOIRE
+   --------------------------------------------------------------- */
+.story {
+  padding: var(--section-pad) var(--gutter);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.story-text .story-lead {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--c-black);
+  margin-bottom: 1.4rem;
+}
+
+.story-text p {
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 46ch;
+  color: #2c2c2a;
+}
+
+.story-text strong {
+  font-weight: 600;
+}
+
+.story-image img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------
+   7. COLLECTION
+   --------------------------------------------------------------- */
+.collection {
+  padding: var(--section-pad) var(--gutter);
+  max-width: 1440px;
+  margin: 0 auto;
+  border-top: 1px solid var(--c-grey-line);
+}
+
+.collection-header {
+  margin-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.collection-sub {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--c-grey-mid);
+}
+
+/* Chaque produit : grille image / info, alternée */
+.product {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-bottom: 1px solid var(--c-grey-line);
+}
+.product:last-child { border-bottom: none; }
+
+.product-reverse {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+}
+.product-reverse .product-media { order: 2; }
+.product-reverse .product-info { order: 1; }
+
+/* Grille asymétrique des photos produit : 1 grande + 2 petites empilées */
+/* minmax(0, ...) : empêche les grandes photos de forcer la taille des cellules
+   (cause du chevauchement entre les deux modèles). */
+.product-media-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.9rem;
+  height: clamp(360px, 42vw, 560px);
+}
+
+/* Chaque photo est dans un <figure> : il clippe l'image (zoom au survol inclus)
+   pour qu'elle ne déborde jamais sur sa voisine. */
+.media-main,
+.media-detail {
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.media-main { grid-row: 1 / 3; }
+
+.media-main img,
+.media-detail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Version miroir pour le second modèle : grande image à droite */
+.product-media-grid-alt {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+}
+.product-media-grid-alt .media-main {
+  grid-column: 2;
+}
+.product-media-grid-alt .media-detail:nth-child(2) { grid-column: 1; grid-row: 1; }
+.product-media-grid-alt .media-detail:nth-child(3) { grid-column: 1; grid-row: 2; }
+
+.product-media { min-width: 0; }
+
+/* Effet de survol élégant sur les photos produit */
+.product-media img {
+  transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
+}
+.product-media img:hover {
+  transform: scale(1.025);
+  filter: grayscale(0.15);
+}
+
+.product-index {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--c-grey-mid);
+  margin-bottom: 0.8rem;
+}
+
+.product-name {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin-bottom: 1rem;
+}
+
+.product-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 34ch;
+  color: #2c2c2a;
+  margin-bottom: 1.6rem;
+}
+
+.product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--c-grey-line);
+}
+
+.product-price {
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.product-sizes {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--c-grey-mid);
+}
+
+/* ---------------------------------------------------------------
+   7b. ENTRETIEN
+   --------------------------------------------------------------- */
+.care {
+  padding: var(--section-pad) var(--gutter);
+  max-width: 1440px;
+  margin: 0 auto;
+  border-top: 1px solid var(--c-grey-line);
+}
+
+.care-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.care-sub {
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 34ch;
+  color: var(--c-grey-mid);
+}
+
+.care-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.care-item {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.4fr) 1fr;
+  gap: 1.5rem;
+  padding: 1.8rem 0;
+  border-top: 1px solid var(--c-grey-line);
+}
+.care-item:last-child { border-bottom: 1px solid var(--c-grey-line); }
+
+.care-item-title {
+  font-size: 1.4rem;
+}
+
+.care-item p {
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 44ch;
+  color: #2c2c2a;
+}
+
+/* ---------------------------------------------------------------
+   8. COMMANDER — bloc inversé (fond noir)
+   --------------------------------------------------------------- */
+.order {
+  background: var(--c-black);
+  color: var(--c-white);
+  padding: var(--section-pad) var(--gutter);
+}
+
+.order-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.order-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(247, 246, 243, 0.75);
+  max-width: 52ch;
+  margin: 0 auto 2rem;
+}
+
+.order-highlight {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 400;
+  color: var(--c-white-pure);
+  margin-bottom: 3rem;
+}
+
+.order-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------------
+   9. FOOTER
+   --------------------------------------------------------------- */
+.site-footer {
+  background: var(--c-white);
+  padding: 2.6rem var(--gutter);
+  border-top: 1px solid var(--c-grey-line);
+}
+
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.footer-socials a {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--c-grey-mid);
+  transition: color 0.3s var(--ease);
+}
+.footer-socials a:hover { color: var(--c-black); }
+
+.footer-copy {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--c-grey-mid);
+}
+
+/* ---------------------------------------------------------------
+   10. RESPONSIVE
+   --------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .main-nav { display: none; }
+  .nav-toggle { display: block; }
+
+  .story-grid {
+    grid-template-columns: 1fr;
+  }
+  .story-image { order: -1; }
+
+  .product,
+  .product-reverse {
+    grid-template-columns: 1fr;
+  }
+  .product-media, .product-reverse .product-media { order: 1; }
+  .product-info, .product-reverse .product-info { order: 2; }
+
+  .product-media-grid { height: 110vw; }
+
+  .care-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .logo-img { height: 38px; }
+  .logo-img-footer { height: 34px; }
+  .care-item { grid-template-columns: 1fr; gap: 0.6rem; }
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-actions { flex-direction: column; width: 100%; }
+  .order-actions .btn { width: 100%; }
+}
